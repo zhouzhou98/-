@@ -1,0 +1,1 @@
+仓储系统项目使用了shiro+springboot+layui技术，能够使刚刚学完springboot的人一个学习搭建项目的机会。
