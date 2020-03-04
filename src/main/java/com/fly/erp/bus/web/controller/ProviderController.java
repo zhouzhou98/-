@@ -4,6 +4,7 @@ package com.fly.erp.bus.web.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fly.erp.bus.domain.Provider;
 import com.fly.erp.bus.service.ProviderService;
 import com.fly.erp.bus.vo.ProviderVo;
@@ -57,7 +58,7 @@ public class ProviderController {
     @RequestMapping("addProvider")
     public ResultObj addProvider(ProviderVo providerVo) {
         try {
-            this.providerService.save(providerVo);
+            this.providerService.saveProvider(providerVo);
             return ResultObj.ADD_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,7 +72,7 @@ public class ProviderController {
     @RequestMapping("updateProvider")
     public ResultObj updateProvider(ProviderVo providerVo) {
         try {
-            this.providerService.updateById(providerVo);
+            this.providerService.updateProviderById(providerVo);
             return ResultObj.UPDATE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,9 +102,10 @@ public class ProviderController {
         try {
             Collection<Serializable> idList = new ArrayList<Serializable>();
             for (Integer id : providerVo.getIds()) {
-                idList.add(id);
+
+                this.providerService.removeById(id);
             }
-            this.providerService.removeByIds(idList);
+
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
